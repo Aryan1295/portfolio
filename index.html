@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Aryan Ghogare – Portfolio</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* -------- Global Reset & Base -------- */
+* {margin:0; padding:0; box-sizing:border-box;}
+body {
+  font-family: 'Inter', sans-serif;
+  background:#0f0f0f;
+  color:#fff;
+  line-height:1.8;
+  overflow-x:hidden;
+  font-size: 1.2rem;
+}
+h1,h2,h3,h4 {
+  font-family:'Poppins', sans-serif;
+  font-weight:600;
+}
+
+/* -------- Particle Canvas -------- */
+#particle-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  background: radial-gradient(circle at center, #002a33 0%, #0a0015 100%);
+}
+
+/* -------- Rainbow Headings -------- */
+.rainbow-text {
+  background: linear-gradient(90deg, red, orange, yellow, lime, cyan, blue, violet, red);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: rainbow 15s linear infinite;
+}
+@keyframes rainbow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* -------- Navigation -------- */
+nav {
+  position: fixed;
+  top:0;
+  width:100%;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
+  padding: 1rem 0;
+  z-index: 10;
+}
+.nav-container {
+  width:90%;
+  max-width:1200px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.logo {
+  font-size:1.8rem;
+  font-weight:700;
+  letter-spacing:1px;
+  font-family:'Poppins', sans-serif;
+}
+.nav-links {
+  list-style:none;
+  display:flex;
+  gap:2rem;
+}
+.nav-links li a {
+  text-decoration:none;
+  color:#fff;
+  font-weight:500;
+  transition:color 0.3s;
+}
+.nav-links li a:hover,
+.nav-links li a.active {
+  color:#00e5ff;
+}
+
+/* -------- Hero Section -------- */
+.hero {
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding-top:60px;
+}
+.hero h1 {
+  font-size:4rem;
+  margin-bottom:1rem;
+}
+.hero p {
+  font-size:1.4rem;
+  max-width:800px;
+  margin:0 auto 2rem;
+  color:#ccc;
+}
+.social-links {
+  display:flex;
+  gap:1rem;
+}
+.social-btn {
+  background:#00e5ff;
+  color:#000;
+  padding:0.7rem 1.2rem;
+  border-radius:30px;
+  text-decoration:none;
+  font-weight:600;
+  transition:background 0.3s;
+}
+.social-btn:hover {background:#00bcd4;}
+.scroll-indicator {
+  margin-top:3rem;
+  font-size:2rem;
+  animation: bounce 1.5s infinite;
+}
+@keyframes bounce {
+  0%,100% {transform:translateY(0);}
+  50% {transform:translateY(-10px);}
+}
+
+/* -------- Section Wrappers -------- */
+section {
+  width:90%;
+  max-width:1200px;
+  margin:5rem auto;
+}
+.section-box {
+  background: rgba(203, 192, 192, 0.03);
+  border: 1px solid rgba(0,229,255,0.2);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 3rem;
+  box-shadow: 0 0 25px rgba(0,229,255,0.08);
+}
+section h2 {
+  font-size:2.6rem;
+  text-align:center;
+  margin-bottom:2rem;
+  color:#00e5ff;
+}
+.section-subtext {
+  color:#ffffff;
+  font-size:1.1rem;
+  margin-bottom:2rem;
+  text-align:center;
+}
+
+/* Cards Layout */
+.cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.7rem; }
+.cards-vertical { display:flex; flex-direction:column; gap:1.5rem; }
+.card {
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.12);
+  padding:1.8rem;
+  border-radius:14px;
+  transition:transform 0.3s;
+}
+.card:hover {transform:translateY(-5px);}
+.card h3 {color:#fff; margin-bottom:0.7rem; font-size:1.4rem;}
+.card p {color:#ffffff; font-size:1rem;}
+
+/* Timeline badges */
+.date-badge {
+  display:inline-block;
+  background:rgba(0,229,255,0.15);
+  border:1px solid #00e5ff;
+  color:#00e5ff;
+  padding:0.3rem 0.8rem;
+  border-radius:20px;
+  font-size:0.9rem;
+  margin-bottom:1rem;
+}
+
+/* Skills Grouping */
+.skill-group {
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:14px;
+  padding:1.5rem;
+  margin-bottom:1.5rem;
+}
+.skill-group h3 {
+  color:#fff;
+  margin-bottom:1rem;
+  font-size:1.7rem;
+  border-left:3px solid #00e5ff;
+  padding-left:0.7rem;
+}
+.skills-grid {
+  display:flex;
+  flex-wrap:wrap;
+  gap:0.7rem;
+}
+.skill-badge {
+  background:rgba(0,229,255,0.1);
+  border:1px solid #00e5ff;
+  padding:0.5rem 1rem;
+  border-radius:20px;
+  font-size:0.95rem;
+  color:#00e5ff;
+  font-weight:500;
+}
+
+/* Floating Math Formulas */
+@keyframes floatMath {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+  50% { transform: translateY(-20px) rotate(5deg); opacity: 0.6; }
+  100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+}
+.math-formula {
+  position: absolute;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.789);
+  animation: floatMath 6s ease-in-out infinite;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Footer */
+footer {
+  text-align:center;
+  padding:2rem 0;
+  color:#ffffff;
+  background:rgba(0,0,0,0.5);
+  font-size:0.95rem;
+}
+</style>
+</head>
+<body>
+
+<!-- Particle Background -->
+<canvas id="particle-canvas"></canvas>
+
+<!-- Floating Math -->
+<div class="math-formula" style="top:10%; left:20%;">∑ e^{iπ} + 1 = 0</div>
+<div class="math-formula" style="top:40%; left:70%;">f(x) = ∫ e^{-x^2} dx</div>
+<div class="math-formula" style="top:70%; left:30%;">P(A|B) = P(A∩B)/P(B)</div>
+<div class="math-formula" style="top:20%; left:80%;">E = mc^2</div>
+<div class="math-formula" style="top:60%; left:10%;">b = (y2 - y1)/(x2 - x1)</div>
+<div class="math-formula" style="top:80%; left:50%;">dx/dt = lim(Δt→0) (Δx/Δt)</div>
+
+<!-- Navigation -->
+<nav>
+  <div class="nav-container">
+    <div class="logo">Aryan Ghogare</div>
+    <ul class="nav-links">
+      <li><a href="#home" class="active">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#achievements">Achievements</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section id="home" class="hero">
+  <h1 class="rainbow-text">Aryan Ghogare</h1>
+  <p>Graduate Student at the University of Florida | AI Systems | Builder of Scalable AI/ML Tools</p>
+  <div class="social-links">
+    <a href="https://github.com/Aryan1295" target="_blank" class="social-btn">GitHub</a>
+    <a href="https://www.linkedin.com/in/aryan-ghogare-09b3a1246/" target="_blank" class="social-btn">LinkedIn</a>
+  </div>
+  <div class="scroll-indicator">↓</div>
+</section>
+
+<!-- About -->
+<section id="about">
+  <div class="section-box">
+    <h2>About Me</h2>
+    <p class="section-subtext">
+      I’m a Graduate student in Artificial Intelligence Systems at the University of Florida (MS ’27) with strong foundations in Computer Science. 
+      Passionate about building scalable AI/ML applications, microservices, and computer vision tools — I thrive on developing impactful, real-world solutions.
+    </p>
+  </div>
+</section>
+
+<!-- Skills -->
+<section id="skills">
+  <div class="section-box">
+    <h2>Technical Skills</h2>
+    <div class="skill-group">
+      <h3>Languages</h3>
+      <div class="skills-grid">
+        <div class="skill-badge">Python</div><div class="skill-badge">C++</div><div class="skill-badge">Java</div>
+        <div class="skill-badge">R</div><div class="skill-badge">HTML/CSS</div><div class="skill-badge">Node.js</div>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>AI / ML</h3>
+      <div class="skills-grid">
+        <div class="skill-badge">TensorFlow</div><div class="skill-badge">PyTorch</div><div class="skill-badge">Keras</div>
+        <div class="skill-badge">OpenCV</div><div class="skill-badge">LangChain</div><div class="skill-badge">ONNX</div>
+        <div class="skill-badge">CrewAI</div><div class="skill-badge">Autogen</div><div class="skill-badge">Llama</div>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>Tools & Frameworks</h3>
+      <div class="skills-grid">
+        <div class="skill-badge">FastAPI</div><div class="skill-badge">Git</div><div class="skill-badge">PowerBI</div>
+        <div class="skill-badge">Tableau</div><div class="skill-badge">VS Code</div><div class="skill-badge">Postman</div>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>Databases</h3>
+      <div class="skills-grid">
+        <div class="skill-badge">SQL</div><div class="skill-badge">MongoDB</div><div class="skill-badge">Milvus</div><div class="skill-badge">FAISS</div>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>Concepts</h3>
+      <div class="skills-grid">
+        <div class="skill-badge">Data Structures</div><div class="skill-badge">OOPs</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Experience -->
+<section id="experience">
+  <div class="section-box">
+    <h2>Work Experience</h2>
+    <div class="cards-vertical">
+      <div class="card">
+        <span class="date-badge">May 2024 – May 2025</span>
+        <h3>AI Engineer Intern – Shyena Tech Yarns Pvt. Ltd.</h3>
+        <p>• Built AI-powered outreach engine with LangChain + LLaMA-3.8B, reducing filtering time from 1 week → <1 day.<br>
+           • Engineered ETL pipelines for 1,000+ interactions.<br>
+           • Deployed ARIMA-based forecasting models into PowerBI dashboards.</p>
+      </div>
+      <div class="card">
+        <span class="date-badge">Jan 2025 – May 2025</span>
+        <h3>Data Science Research Intern – Accredian Pvt. Ltd.</h3>
+        <p>• Developed a multi-agent content creation system (CrewAI), reducing prep time from 1 day → 1 hr.<br>
+           • Worked as TA in ML, CV, and Generative AI.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="projects">
+  <div class="section-box">
+    <h2>Projects</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>HearMate – Assistive App</h3>
+        <p>AI-powered accessibility app for deaf/hard-of-hearing users: speech-to-text captions, multilingual translation, and music-to-vibration mapping.</p>
+      </div>
+      <div class="card">
+        <h3>Virtual AI Writer (Patent Filed)</h3>
+        <p>Gesture-driven annotation tool using CVZone + OpenCV, benchmarked across YOLO & MediaPipe, integrated into WebRTC video conferencing.</p>
+      </div>
+      <div class="card">
+        <h3>Drishtikona</h3>
+        <p>Computer vision-based visual assistance for visually impaired users with OpenCV + BLIP, extending awareness range from 1m → 15m, audio via Bluetooth.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Achievements -->
+<section id="achievements">
+  <div class="section-box">
+    <h2>Achievements</h2>
+    <div class="cards">
+      <div class="card"><h3>Patent & Publications</h3><p>Authored 1 patent and 3 research papers published in Springer.</p></div>
+      <div class="card"><h3>HackMIT 2024</h3><p>🥇 1st place in Ideathon track.</p></div>
+      <div class="card"><h3>Academic Award</h3><p>Student Achiever Award, Dept. of CSE, MIT-WPU.</p></div>
+      <div class="card"><h3>Sports</h3><p>Silver medal in swimming & 4th place in district-level football.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Education -->
+<section id="education">
+  <div class="section-box">
+    <h2>Education</h2>
+    <p>MS Artificial Intelligence Systems – University of Florida (May 2027)</p>
+    <p>B.Tech Computer Science (AI & Data Science) – MIT-WPU (May 2025)</p>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="section-box">
+    <h2>Contact</h2>
+    <p>Email: a.ghogare@ufl.edu</p>
+    <p>Phone: +1 352 328 9025</p>
+  </div>
+</section>
+
+<footer>
+  &copy; 2025 Aryan Ghogare. All rights reserved.
+</footer>
+
+<!-- -------- Particle JS -------- -->
+<script>
+(() => {
+  const canvas = document.getElementById("particle-canvas");
+  const ctx = canvas.getContext("2d");
+  let particles = [];
+  let mouse = { x: null, y: null, radius: 200 }; // bigger radius for sensitivity
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener("resize", resize);
+  resize();
+
+  window.addEventListener("mousemove", e => {
+    mouse.x = e.x;
+    mouse.y = e.y;
+  });
+  window.addEventListener("mouseout", () => { mouse.x = null; mouse.y = null; });
+
+  class Particle {
+    constructor() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.vx = (Math.random() - 0.5) * 1.5;
+      this.vy = (Math.random() - 0.5) * 1.5;
+      this.size = 2 + Math.random() * 2;
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(255,255,255,0.8)";
+      ctx.fill();
+    }
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+      if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+      if (mouse.x !== null && mouse.y !== null) {
+        let dx = this.x - mouse.x;
+        let dy = this.y - mouse.y;
+        let dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < mouse.radius) {
+          const force = (mouse.radius - dist) / mouse.radius;
+          const angle = Math.atan2(dy, dx);
+          this.x += Math.cos(angle) * force * 15; // more sensitive
+          this.y += Math.sin(angle) * force * 15;
+        }
+      }
+      this.draw();
+    }
+  }
+
+  function connectParticles() {
+    for (let a = 0; a < particles.length; a++) {
+      for (let b = a + 1; b < particles.length; b++) {
+        let dx = particles[a].x - particles[b].x;
+        let dy = particles[a].y - particles[b].y;
+        let distSq = dx * dx + dy * dy;
+        if (distSq < 150*150) {
+          ctx.strokeStyle = "rgba(255,255,255," + (1 - distSq/22500) + ")";
+          ctx.lineWidth = 0.5;
+          ctx.beginPath();
+          ctx.moveTo(particles[a].x, particles[a].y);
+          ctx.lineTo(particles[b].x, particles[b].y);
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  const NUM = Math.floor((canvas.width + canvas.height) / 15);
+  for (let i = 0; i < NUM; i++) particles.push(new Particle());
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => p.update());
+    connectParticles();
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+</script>
+
+</body>
+</html>
